@@ -5,20 +5,14 @@ import java.util.List;
 class Solution {
     public List<Integer> findDisappearedNumbers(int[] nums) {
         List<Integer> disappearedNumbers = new ArrayList<>();
-        Arrays.sort(nums);
-        int candidate = 1;
-        for (int n : nums) {
-            while (n > candidate) {
-                disappearedNumbers.add(candidate);
-                candidate++;
-            }
 
-            if (n == candidate) candidate++;
+        for (int i = 0; i < nums.length; i++) {
+            int index = Math.abs(nums[i]) - 1;
+            if (nums[index] > 0) nums[index] = -nums[index];
         }
 
-        while (candidate <= nums.length) {
-            disappearedNumbers.add(candidate);
-            candidate++;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) disappearedNumbers.add(i + 1);
         }
 
         return disappearedNumbers;
